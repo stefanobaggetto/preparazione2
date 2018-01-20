@@ -1,6 +1,6 @@
 const express = require('express'),
     bodyParser = require('body-parser');
-const nomeModulo = express.Router()
+const astronauts = express.Router()
 
 var uuid = require('uuid-v4'); //crea id univoci
 
@@ -21,14 +21,18 @@ astronauts.route('/astronauts')
   })
 //posta un elemento
   .post((req, res) => {
-    var astronauts = {}
-    astronauts.id = uuid()
-    if (req.body.firstName) astronauts.firstName = req.body.firstName
-    if (req.body.lastName) astronauts.lastName = req.body.lastName
-    if (req.body.isInSpace) astronauts.isInSpace = req.body.isInSpace
-    arrayAstronauts.push(astronauts)
+    var astronaut = {}
+    astronaut.id = uuid()
+    if (req.body.firstName) astronaut.firstName = req.body.firstName
+    if (req.body.lastName) astronaut.lastName = req.body.lastName
+    if (req.body.isInSpace) {
+      astronaut.isInSpace = true
+    } else {
+      astronaut.isInSpace = false
+    }
+    arrayAstronauts.push(astronaut)
     res.status(200)
-    res.json(astronauts)
+    res.json(astronaut)
   });
 
-module.exports = nomeModulo
+module.exports = astronauts
