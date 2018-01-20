@@ -45,6 +45,23 @@ astronauts.route('/astronauts/:id')
       res.status(200)
       res.json(arrayAstronauts[i])
     }
-  });
-  
+  })
+
+  .put((req, res) => {
+    var id = req.params.id
+    const i = arrayAstronauts.findIndex(item => {return item.id === id})
+    if (i==-1) res.sendStatus(404) //elemento non trovato
+    else {
+        if (req.body.firstName) arrayAstronauts[i].firstName = req.body.firstName
+        if (req.body.lastName) arrayAstronauts[i].lastName = req.body.lastName
+        if (req.body.isInSpace) {
+          arrayAstronauts[i].isInSpace = true
+        } else {
+        arrayAstronauts[i].isInSpace = false
+        }
+        res.status(200)
+        res.json(arrayAstronauts[i])
+    }
+  })
+
 module.exports = astronauts
