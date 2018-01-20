@@ -15,10 +15,29 @@ astronauts.route('/')
 
 astronauts.route('/astronauts')
   //get di tutto l'array
+    /* //semplice semplice
     .get((req, res) => {
     res.status(200)
     res.json(arrayAstronauts)
   })
+*/
+
+.get((req, res) => {
+    var lastName = ''
+    if (req.query.lastName) {
+      lastName = req.query.lastName
+      var checklastName = function (astronaut){
+        return astronaut.lastName == lastName
+      }
+      var array = arrayAstronauts.filter(checklastName, lastName)
+      res.json(array)
+    }
+    else {
+      res.status(200)
+      res.json(arrayAstronauts)
+    }
+})
+
 //posta un elemento
   .post((req, res) => {
     var astronaut = {}
